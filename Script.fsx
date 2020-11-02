@@ -15,7 +15,7 @@ let centers =
     let s2 = point.[0]*point.[0]
     let len2s =  [|
       for corner in 0..2 do
-        getlen2 [| for coord in 0..2 do if coord=corner then (int64 point.[coord+1]-point.[0]) else (int64 point.[coord+1]) |]
+        getlen2 [| for coord in 0..2 do if coord=corner then point.[coord+1]-point.[0] else point.[coord+1] |]
     |]
     [| for corner in 0..2 do centers [| s2; len2s.[(corner+1)%3]; len2s.[(corner+2)%3] |] |]
 printfn "%A" (centers [|   784L ;   325L ;   264L ;  195L |])
