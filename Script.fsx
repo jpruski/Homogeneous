@@ -3,7 +3,7 @@ let centers =
   let simplify (coord:int64[]) =
     let gcf = abs (gcd coord.[0] (gcd coord.[1] coord.[2]))
     [|coord.[0]/gcf; coord.[1]/gcf; coord.[2]/gcf|]
-  let getlen2 = fun (d:int64[]) -> -d.[2]*d.[1]-d.[0]*d.[2]-d.[0]*d.[1]
+  let getlen2 = fun (d:int64[]) -> Seq.sum (seq { for i in 0..2 do -d.[(i+1)%3]*d.[i] }) |]
   let centers (s2:int64[]) =
     let heron = [| for coord in 0..2 do Seq.sum (seq { for i in 0..2 do if i=coord then -s2.[i] else s2.[i] }) |]
     [|
