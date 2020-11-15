@@ -32,9 +32,9 @@ insert into triangle
                     and
                 lengths.length <> upper_lower.lower),
         intermediate as (
-            select 1 as id, labeled.id as fk, labeled.upper as b, labeled.middle as c from labeled
+            select 1 as id, id as fk, upper as b, middle as c from labeled
                 union
-            select 2 as id, labeled.id as fk, labeled.lower as b, labeled.upper as c from labeled
+            select 2 as id, id as fk, lower as b, upper as c from labeled
                 union
-            select 3 as id, labeled.id as fk, labeled.middle as b, labeled.lower as c from labeled)
+            select 3 as id, id as fk, middle as b, lower as c from labeled)
         select intermediate.id, fk, w2 as a, b, c from intermediate inner join w2 on intermediate.fk=w2.id;
