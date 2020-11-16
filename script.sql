@@ -1,8 +1,15 @@
 CREATE TYPE basis AS OBJECT (id NUMBER, a NUMBER, b NUMBER, c NUMBER); -- a > b > c
 CREATE TYPE dependant AS OBJECT (id NUMBER, fk NUMBER, a NUMBER, b NUMBER, c NUMBER);
 CREATE TABLE point OF basis;
+-- add points here
 CREATE TABLE corner OF basis;
+insert all
+    into corner values(1,1,0,0)
+    into corner values(2,0,1,0)
+    into corner values(3,0,0,1)
+select * from dual;
 CREATE TABLE triangle OF dependant;
+CREATE TABLE circumcenters OF dependant;
 insert into triangle
     with
         p as (select id, A+B+C as W, A, B, C from point),
@@ -38,3 +45,11 @@ insert into triangle
                 union
             select 3 as id, id as fk, middle as b, lower as c from labeled)
         select intermediate.id, fk, w2 as a, b, c from intermediate inner join w2 on intermediate.fk=w2.id;
+insert into circumcenters select
+    id, fk,
+    triangle.a*(triangle.b+triangle.c-triangle.a) as a,
+    triangle.b*(triangle.c+triangle.a-triangle.b) as b,
+    triangle.c*(triangle.a+triangle.b-triangle.c) as c
+from triangle;
+commit;
+/
