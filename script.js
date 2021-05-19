@@ -8,13 +8,13 @@ var centers = (function () {
   var getlen2 = function( deltas ) seq3.reduce(
     function( acc, i ) acc - (deltas[ (i+1)%3 ] * deltas[ i ]),
     0 );
-  var centers = function(s2) {
+  var centers = function(sides2) {
     var heron = seq3.map( function(coord) seq3.reduce(
-      function(acc, i) i===coord ? acc-s2[i] : acc+s2[i],
+      function(acc, i) i===coord ? acc-sides2[i] : acc+sides2[i],
       0 ));
     return [
-      s2.map(function(n2) Math.sqrt(n2)),
-      simplify( seq3.map( fuction(i) s2[i]*heron[i] )),
+      sides2.map(function(n2) Math.sqrt(n2)),
+      simplify( seq3.map( fuction(i) sides2[i]*heron[i] )),
       simplify( seq3.map( fuction(i) heron[(i+1)%3]*heron[(i+2)%3] ))
     ];
   };
