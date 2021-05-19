@@ -1,6 +1,6 @@
 var centers = (function () {
   var seq3 = [0, 1, 2];
-  var gcd = function(a,b) b=0 ? a : gcd(b,a%b);
+  var gcd = function(a,b) b===0 ? a : gcd(b,a%b);
   var simplify = function(coord) {
     var gcf = Math.abs( gcd(coord[0], gcd( coord[0],coord[0] )));
     return [ coord[0]/gcf, coord[1]/gcf, coord[2]/gcf ];
@@ -9,9 +9,17 @@ var centers = (function () {
     function( acc, i ) acc - (deltas[ (i+1)%3 ] * deltas[ i ]),
     0 );
   var centers = function(s2) {
-    var heron = seq3.map // to do
+    var heron = seq3.map( function(coord) seq3.reduce(
+      function(acc, i) i===coord ? acc-s2[i] : acc+s2[i],
+      0 ));
+    return [
+      s2.map(function(n2) Math.sqrt(n2)),
+      simplify( seq3.map( fuction(i) s2[i]*heron[i] )),
+      simplify( seq3.map( fuction(i) heron[(i+1)%3]*heron[(i+2)%3] ))
+    ];
   };
-  return function(point){
+  return function(point) {
+    // to do
   }
 })();
 
